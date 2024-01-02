@@ -73,8 +73,24 @@
 
 -- COMMAND ----------
 
+-- MAGIC %sql
+-- MAGIC select * from json.`${DA.paths.kafka_events}`
+
+-- COMMAND ----------
+
 -- TODO
-<FILL_IN> "${DA.paths.kafka_events}" 
+-- select * from json.`${DA.paths.kafka_events}`
+
+create table if not exists events_json
+(key	BINARY, offset	LONG, partition	INTEGER, timestamp	LONG, topic	STRING, value	BINARY)
+using json
+location "${DA.paths.kafka_events}"
+
+-- COMMAND ----------
+
+-- MAGIC %sql
+-- MAGIC
+-- MAGIC select count(*) from events_json
 
 -- COMMAND ----------
 
